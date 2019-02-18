@@ -11,7 +11,7 @@ import javax.persistence.TypedQuery;
 import model.MagicCards;
 
 public class MagicCardHelper {
-	static EntityManagerFactory emfactory = Persistence.createEntityManagerFactory("MagicCards");
+	static EntityManagerFactory emfactory = Persistence.createEntityManagerFactory("MagicCardDatabase");
 	
 	public void insertItem(MagicCards mc) {
 		EntityManager em = emfactory.createEntityManager();
