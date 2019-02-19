@@ -23,37 +23,52 @@ public class HolderDetails {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="handid")
 	private int id;
+	
 	@Column(name="handname")
 	private String handName;
+	
 	@Column(name="handcreated")
 	private LocalDate handCreated;
-	@ManyToOne
+	
+	@ManyToOne(cascade=CascadeType.PERSIST)
+	@JoinColumn(name="holderid")
 	private CardHolder holder;
-	@OneToMany(cascade=CascadeType.PERSIST, fetch=FetchType.EAGER)
+	
+	@OneToMany(cascade=CascadeType.MERGE, fetch=FetchType.EAGER)
 	@JoinTable
 	 (
-	 name="holdershanddetails",
-	 joinColumns={ @JoinColumn(name="handid",
-	referencedColumnName="handid") },
-	 inverseJoinColumns={ @JoinColumn(name="handid",
-	referencedColumnName="ID", unique=true) }
+	 name="listofcards",
+	 joinColumns={ @JoinColumn(name="id", referencedColumnName="id") },
+	 inverseJoinColumns={ @JoinColumn(name="id", referencedColumnName="id", unique=true) }
 	 )
 	private List<MagicCards> listOfCards;
 	
 	public HolderDetails() {
-		
+		super();
 	}
 	
 	public HolderDetails(int id, String handName, LocalDate handCreated, CardHolder holder, List<MagicCards> listOfCards) {
-	
+		super();
+		this.id = id;
+		this.listOfCards = listOfCards;
+		this.handName = handName;
+		this.handCreated = handCreated;
+		this.holder = holder;
 	}
 	
 	public HolderDetails(String handName, LocalDate handCreated, CardHolder holder, List<MagicCards> listOfCards) {
-				
+		super();
+		this.listOfCards = listOfCards;
+		this.handName = handName;
+		this.handCreated = handCreated;
+		this.holder = holder;
 	}
 	
 	public HolderDetails(String handName, LocalDate handCreated, CardHolder holder) {
-				
+		super();
+		this.handName = handName;
+		this.handCreated = handCreated;
+		this.holder = holder;
 	}
 	
 	
@@ -97,5 +112,8 @@ public class HolderDetails {
 		this.listOfCards = listOfCards;
 	}
 
-	
+	@Override
+	public String toString() {
+		return "Hand Details [id=" + id + ", HandName=" + handName + ", Date Created=" + handCreated + ", Holder=" + holder + ", listOfCards=" + listOfCards + "]";
+	}
 }

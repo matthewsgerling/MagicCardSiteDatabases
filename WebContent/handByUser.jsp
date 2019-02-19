@@ -5,20 +5,20 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Shopping Lists</title>
+<title>Card List</title>
 </head>
 <body>
-<form method = "post" action = "">
+<form method = "post" action = "HolderNavigation">
 <table>
-<c:forEach items="${requestScope.AllCards}" var="currentcard">
+<c:forEach items="${requestScope.AllHands}" var="currentcard">
 <tr>
-<td><input type="radio" name="id" value="${currentcard.getId()}"></td>
+<td><input type="radio" name="id" value="${currentcard.id}"></td>
  <td><h2>${currentcard.getHandName()}</h2></td></tr>
  <tr><td colspan="3">Hand Created: ${currentcard.getHandCreated()}</td></tr>
- <tr><td colspan="3">Holder:${currentcard.holder.getHolderName()}</td></tr>
-<c:forEach var = "cardVal" items = "${currentcard.magiccards}">
+ <tr><td colspan="3">Holder:${currentcard.getHolder().getShopperName()}</td></tr>
+<c:forEach var = "cardVal" items = "${currentcard.getListOfCards()}">
 	<tr><td></td><td colspan="3">
-		${cardVal.name}, ${cardVal.type},${cardVal.manacost}
+		${cardVal.getName()}, ${cardVal.getType()},${cardVal.getManaCost()}
 			</td>
  		</tr>
 	</c:forEach>

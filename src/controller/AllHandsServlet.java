@@ -33,12 +33,14 @@ public class AllHandsServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		HolderDetailsHelper hdh = new HolderDetailsHelper();
 		List<HolderDetails> abc = hdh.getLists();
-		request.setAttribute("allLists", abc);
+		request.setAttribute("AllHands", abc);
 		
 		if(abc.isEmpty()){
-			request.setAttribute("allLists", " ");
+			request.setAttribute("AllHands", " ");
 		}
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
+		getServletContext().getRequestDispatcher("/handByUser.jsp").forward(request, response);
+		
 	}
 
 	/**

@@ -41,7 +41,6 @@ public class navigation extends HttpServlet {
 		MagicCardHelper mch = new MagicCardHelper();
 		
 		if (act == null) {
-		 //no button has been selected
 		getServletContext().getRequestDispatcher("/AllCards").
 		forward(request, response);
 		} else if (act.equals("delete")) {
@@ -51,7 +50,6 @@ public class navigation extends HttpServlet {
 				mch.deleteItem(itemToDelete);
 				
 			} catch (NumberFormatException e) {
-				System.out.println("Forgot to click a button");
 			} finally {
 				getServletContext().getRequestDispatcher("/AllCards").forward(request, response);
 			}
