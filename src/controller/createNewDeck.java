@@ -12,20 +12,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.CardHolder;
-import model.HolderDetails;
+import model.DeckDetails;
 import model.MagicCards;
 
 /**
- * Servlet implementation class createNewHand
+ * Servlet implementation class createNewDeck
  */
-@WebServlet("/createNewHand")
-public class createNewHand extends HttpServlet {
+@WebServlet("/createNewDeck")
+public class createNewDeck extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public createNewHand() {
+    public createNewDeck() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,19 +36,19 @@ public class createNewHand extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		MagicCardHelper mch = new MagicCardHelper();
-		String HandName = request.getParameter("HandName");
-		System.out.println("Hand Name: "+ HandName);
+		String deckName = request.getParameter("deckName");
+		System.out.println("Deck Name: "+ deckName);
 		String month = request.getParameter("month");
 		String day = request.getParameter("day");
 		String year = request.getParameter("year");
-		String shopperName = request.getParameter("holderName");
+		String holderName = request.getParameter("holderName");
 		LocalDate ld;
 		try {
 			ld = LocalDate.of(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day));
 		}catch(NumberFormatException ex) {
 			ld = LocalDate.now();
 		}
-		String[] selectedItems = request.getParameterValues("allcardsToAdd");
+		String[] selectedItems = request.getParameterValues("allCardsToAdd");
 		List<MagicCards> selectedCardsInList = new ArrayList<MagicCards>();
 		if (selectedItems != null && selectedItems.length > 0) {
 			for(int i = 0; i<selectedItems.length; i++) {
@@ -57,14 +57,14 @@ public class createNewHand extends HttpServlet {
 				selectedCardsInList.add(m);
 			}
 		}
-		CardHolder holder = new CardHolder(shopperName);
-		HolderDetails hd = new HolderDetails(HandName, ld, holder);
-		hd.setListOfCards(selectedCardsInList);
-		HolderDetailsHelper hdh = new HolderDetailsHelper();
-		hdh.insertNewListDetails(hdh);
+		CardHolder holder = new CardHolder(holderName);
+		DeckDetails dd = new DeckDetails(deckName, ld, holder);
+		dd.setListOfCards(selectedCardsInList);
+		DeckDetailsHelper hdh = new DeckDetailsHelper();
+		hdh.insertNewDeckDetails(dd);
 		System.out.println("Success!");
-		System.out.println(hd.toString());
-		getServletContext().getRequestDispatcher("/AllHandsServlet").forward(request, response);
+		System.out.println(dd.toString());
+		getServletContext().getRequestDispatcher("/AllDeckServlet").forward(request, response);
 	}
 
 	/**

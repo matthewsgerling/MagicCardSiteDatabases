@@ -8,14 +8,14 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="cardholder")
+@Table(name="card_holder")
 public class CardHolder {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="holderid")
+	@Column(name="card_holder_id")
 	private int id;
 
-	@Column(name="holdername")
+	@Column(name="holder_name")
 	
 	private String holderName;
 	
@@ -43,12 +43,12 @@ public class CardHolder {
 		this.id = id;
 	}
 	
-	public String getShopperName() {
+	public String getHolderName() {
 		return holderName;
 	}
 	
-	public void setShopperName(String shopperName) {
-		this.holderName = shopperName;
+	public void setHolderName(String holderName) {
+		this.holderName = holderName;
 	}
 	
 	@Override

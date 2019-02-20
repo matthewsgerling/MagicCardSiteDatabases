@@ -13,20 +13,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.CardHolder;
-import model.HolderDetails;
+import model.DeckDetails;
 import model.MagicCards;
 
 /**
  * Servlet implementation class editHand
  */
-@WebServlet("/editHand")
-public class editHand extends HttpServlet {
+@WebServlet("/EditDeckServlet")
+public class EditDeckServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public editHand() {
+    public EditDeckServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,15 +35,15 @@ public class editHand extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HolderDetailsHelper hdh = new HolderDetailsHelper();
+		DeckDetailsHelper hdh = new DeckDetailsHelper();
 		MagicCardHelper mch = new MagicCardHelper();
 		CardHolderHelper chh = new CardHolderHelper();
 		
 		int idToEdit = Integer.parseInt(request.getParameter("id"));
-		HolderDetails toEdit = hdh.searchForListById(idToEdit);
-		String handName = request.getParameter("handName");
-		System.out.println("Holder Name: " + handName);
-		toEdit.setHandName(handName);
+		DeckDetails toEdit = hdh.searchForListById(idToEdit);
+		String deckName = request.getParameter("deckName");
+		System.out.println("Deck Name: " + deckName);
+		toEdit.setDeckName(deckName);
 
 		String month = request.getParameter("month");
 		String day = request.getParameter("day");
@@ -55,7 +55,7 @@ public class editHand extends HttpServlet {
 		} catch (NumberFormatException ex) {
 			ld = LocalDate.now();
 		}
-		toEdit.setHandCreated(ld);
+		toEdit.setDeckCreated(ld);
 
 		String HolderName = request.getParameter("holderName");
 		CardHolder holder;
@@ -66,7 +66,7 @@ public class editHand extends HttpServlet {
 		} catch (Exception ex) {
 			holder = new CardHolder(HolderName);
 		}
-		toEdit.setHandName(HolderName);
+		toEdit.setHolder(holder);
 		
 		List<MagicCards> previousListOfCards = toEdit.getListOfCards();
 
@@ -91,7 +91,7 @@ public class editHand extends HttpServlet {
 		System.out.println("Success!");
 		System.out.println(toEdit.toString());
 
-		getServletContext().getRequestDispatcher("/viewAllListsServlet").forward(request, response);
+		getServletContext().getRequestDispatcher("/AllDeckServlet").forward(request, response);
 
 	}
 

@@ -5,30 +5,39 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Card List</title>
+<title>Deck List</title>
 </head>
 <body>
 <form method = "post" action = "HolderNavigation">
 <table>
-<c:forEach items="${requestScope.AllHands}" var="currentcard">
+<c:choose>
+<c:when test="${requestScope.AllDecks==' '}">
 <tr>
-<td><input type="radio" name="id" value="${currentcard.id}"></td>
- <td><h2>${currentcard.getHandName()}</h2></td></tr>
- <tr><td colspan="3">Hand Created: ${currentcard.getHandCreated()}</td></tr>
- <tr><td colspan="3">Holder:${currentcard.getHolder().getShopperName()}</td></tr>
-<c:forEach var = "cardVal" items = "${currentcard.getListOfCards()}">
+<td>No Decks Found</td>
+</tr>
+</c:when>
+<c:otherwise>
+<c:forEach items="${requestScope.AllDecks}" var="currentdeck">
+<tr>
+<td><input type="radio" name="id" value="${currentdeck.getId()}"></td>
+ <td><h2>${currentdeck.getDeckName()}</h2></td></tr>
+ <tr><td colspan="3">Hand Created: ${currentdeck.getDeckCreated()}</td></tr>
+ <tr><td colspan="3">Holder:${currentdeck.getHolder().getHolderName()}</td></tr>
+<c:forEach var = "cardVal" items = "${currentdeck.getListOfCards()}">
 	<tr><td></td><td colspan="3">
 		${cardVal.getName()}, ${cardVal.getType()},${cardVal.getManaCost()}
 			</td>
  		</tr>
 	</c:forEach>
 </c:forEach>
+</c:otherwise>
+</c:choose>
 </table>
 <input type = "submit" value = "edit" name="doThisToItem">
 <input type = "submit" value = "delete" name="doThisToItem">
 <input type="submit" value = "add" name = "doThisToItem">
 </form>
-<a href="AddCards">Create a new Hand</a>
+<a href="NewDeckServlet">Create a new Deck</a>
 <a href="index.html">Insert a new Card</a>
 </body>
 </html>

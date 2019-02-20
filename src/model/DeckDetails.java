@@ -17,57 +17,57 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="holdershanddetails")
-public class HolderDetails {
+@Table(name="deck_details")
+public class DeckDetails {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="handid")
+	@Column(name="deck_details_id")
 	private int id;
 	
-	@Column(name="handname")
-	private String handName;
+	@Column(name="deck_name")
+	private String deckName;
 	
-	@Column(name="handcreated")
-	private LocalDate handCreated;
+	@Column(name="deck_created")
+	private LocalDate deckCreated;
 	
 	@ManyToOne(cascade=CascadeType.PERSIST)
-	@JoinColumn(name="holderid")
+	@JoinColumn(name="card_holder_id")
 	private CardHolder holder;
 	
 	@OneToMany(cascade=CascadeType.MERGE, fetch=FetchType.EAGER)
 	@JoinTable
 	 (
-	 name="listofcards",
-	 joinColumns={ @JoinColumn(name="id", referencedColumnName="id") },
-	 inverseJoinColumns={ @JoinColumn(name="id", referencedColumnName="id", unique=true) }
+	 name="list_of_cards",
+	 joinColumns={ @JoinColumn(name="deck_details_id", referencedColumnName="deck_details_id") },
+	 inverseJoinColumns={ @JoinColumn(name="card_stats_id", referencedColumnName="card_stats_id", unique=true) }
 	 )
 	private List<MagicCards> listOfCards;
 	
-	public HolderDetails() {
+	public DeckDetails() {
 		super();
 	}
 	
-	public HolderDetails(int id, String handName, LocalDate handCreated, CardHolder holder, List<MagicCards> listOfCards) {
+	public DeckDetails(int id, String deckName, LocalDate deckCreated, CardHolder holder, List<MagicCards> listOfCards) {
 		super();
 		this.id = id;
 		this.listOfCards = listOfCards;
-		this.handName = handName;
-		this.handCreated = handCreated;
+		this.deckName = deckName;
+		this.deckCreated = deckCreated;
 		this.holder = holder;
 	}
 	
-	public HolderDetails(String handName, LocalDate handCreated, CardHolder holder, List<MagicCards> listOfCards) {
+	public DeckDetails(String deckName, LocalDate deckCreated, CardHolder holder, List<MagicCards> listOfCards) {
 		super();
 		this.listOfCards = listOfCards;
-		this.handName = handName;
-		this.handCreated = handCreated;
+		this.deckName = deckName;
+		this.deckCreated = deckCreated;
 		this.holder = holder;
 	}
 	
-	public HolderDetails(String handName, LocalDate handCreated, CardHolder holder) {
+	public DeckDetails(String deckName, LocalDate deckCreated, CardHolder holder) {
 		super();
-		this.handName = handName;
-		this.handCreated = handCreated;
+		this.deckName = deckName;
+		this.deckCreated = deckCreated;
 		this.holder = holder;
 	}
 	
@@ -80,20 +80,20 @@ public class HolderDetails {
 		this.id = id;
 	}
 
-	public String getHandName() {
-		return handName;
+	public String getDeckName() {
+		return deckName;
 	}
 
-	public void setHandName(String handName) {
-		this.handName = handName;
+	public void setDeckName(String deckName) {
+		this.deckName = deckName;
 	}
 
-	public LocalDate getHandCreated() {
-		return handCreated;
+	public LocalDate getDeckCreated() {
+		return deckCreated;
 	}
 
-	public void setHandCreated(LocalDate handCreated) {
-		this.handCreated = handCreated;
+	public void setDeckCreated(LocalDate deckCreated) {
+		this.deckCreated = deckCreated;
 	}
 
 	public CardHolder getHolder() {
@@ -114,6 +114,6 @@ public class HolderDetails {
 
 	@Override
 	public String toString() {
-		return "Hand Details [id=" + id + ", HandName=" + handName + ", Date Created=" + handCreated + ", Holder=" + holder + ", listOfCards=" + listOfCards + "]";
+		return "Deck Details [id=" + id + ", DeckName=" + deckName + ", Date Created=" + deckCreated + ", Holder=" + holder + ", listOfCards=" + listOfCards + "]";
 	}
 }

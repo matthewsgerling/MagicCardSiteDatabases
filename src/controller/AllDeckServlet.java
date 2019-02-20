@@ -9,19 +9,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.HolderDetails;
+import model.DeckDetails;
 
 /**
- * Servlet implementation class AllHandsServlet
+ * Servlet implementation class AllDecksServlet
  */
-@WebServlet("/AllHandsServlet")
-public class AllHandsServlet extends HttpServlet {
+@WebServlet("/AllDeckServlet")
+public class AllDeckServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AllHandsServlet() {
+    public AllDeckServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,15 +31,18 @@ public class AllHandsServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		HolderDetailsHelper hdh = new HolderDetailsHelper();
-		List<HolderDetails> abc = hdh.getLists();
-		request.setAttribute("AllHands", abc);
+		DeckDetailsHelper hdh = new DeckDetailsHelper();
+		List<DeckDetails> abc = hdh.getLists();
+		
+		request.setAttribute("AllDecks", abc);
+		
 		
 		if(abc.isEmpty()){
-			request.setAttribute("AllHands", " ");
+			request.setAttribute("AllDecks", " ");
 		}
 		
-		getServletContext().getRequestDispatcher("/handByUser.jsp").forward(request, response);
+		
+		getServletContext().getRequestDispatcher("/DeckByUser.jsp").forward(request, response);
 		
 	}
 

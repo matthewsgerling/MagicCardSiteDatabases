@@ -8,21 +8,21 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="cardstats")
+@Table(name="card_stats")
 public class MagicCards {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="ID")
+	@Column(name="card_stats_id")
 	public int id;
 	
-	@Column(name="cardname")
+	@Column(name="card_name")
 	public String cardname;
 	
-	@Column(name="cardtype")
+	@Column(name="card_type")
 	public String cardtype;
 	
-	@Column(name="manacost")
+	@Column(name="mana_cost")
 	public int manaCost;
 	
 	public MagicCards() {

@@ -7,47 +7,47 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
-import model.HolderDetails;
+import model.DeckDetails;
 
-public class HolderDetailsHelper {
+public class DeckDetailsHelper {
 	static EntityManagerFactory emfactory = Persistence.createEntityManagerFactory("MagicCardDatabase");
 	
-	public void insertNewListDetails(HolderDetailsHelper hdh) {
+	public void insertNewDeckDetails(DeckDetails dd) {
 		EntityManager em = emfactory.createEntityManager();
 		em.getTransaction().begin();
-		em.persist(hdh);
+		em.persist(dd);
 		em.getTransaction().commit();
 		em.close();
 	}
 	
-	public List<HolderDetails> getLists() {
+	public List<DeckDetails> getLists() {
 		EntityManager em = emfactory.createEntityManager();
-		List<HolderDetails> allDetails = em.createQuery("SELECT i FROM HolderDetails i").getResultList();
+		List<DeckDetails> allDetails = em.createQuery("SELECT i FROM DeckDetails i").getResultList();
 		return allDetails;
 	}
 	
-	public HolderDetails searchForListById(Integer tempId) {
+	public DeckDetails searchForListById(Integer tempId) {
 		EntityManager em = emfactory.createEntityManager();
 		em.getTransaction().begin();
-		HolderDetails found = em.find(HolderDetails.class, tempId);
+		DeckDetails found = em.find(DeckDetails.class, tempId);
 		em.close();
 		return found;
 	}
 
-	public void deleteItem(HolderDetails HandToDelete) {
+	public void deleteItem(DeckDetails DeckToDelete) {
 		EntityManager em = emfactory.createEntityManager();
 		em.getTransaction().begin();
-		TypedQuery<HolderDetails> typedQuery = em.createQuery("select d from HolderDetails d where d.id = :selectedid", HolderDetails.class);
-		typedQuery.setParameter("selectedid", HandToDelete.getId());
+		TypedQuery<DeckDetails> typedQuery = em.createQuery("select d from DeckDetails d where d.id = :selectedid", DeckDetails.class);
+		typedQuery.setParameter("selectedid", DeckToDelete.getId());
 		typedQuery.setMaxResults(1);
-		HolderDetails result = typedQuery.getSingleResult();
+		DeckDetails result = typedQuery.getSingleResult();
 		em.remove(result);
 		em.getTransaction().commit();
 		em.close();
 		
 	}
 
-	public void updateList(HolderDetails toEdit) {
+	public void updateList(DeckDetails toEdit) {
 		EntityManager em = emfactory.createEntityManager();
 		em.getTransaction().begin();
 		em.merge(toEdit);
